@@ -65,12 +65,12 @@ int main(){
 	}while((tmp->next)!=NULL);
 	*/
 	
-	for(tmp=testa;(tmp->next)!=NULL;tmp=tmp->next){
+	for(tmp=testa;tmp!=NULL;tmp=tmp->next){
 	
 		printf("\nCodice utente: %d\n", tmp->inf); 
 	}
 	
-	printf("\nCodice utente: %d\n", coda->inf); //bruttino
+	//printf("\nCodice utente: %d\n", coda->inf); //bruttino
 	
 	//Ricerca di un utente
 	printf("\nDigita il codice dell'utente che vuoi cercare\n");
@@ -101,7 +101,7 @@ int  ricerca(el *tmp ,int n){
 	
 	printf("\nIl codice del secondo utente e' %d\n", (tmp->next)->inf);
 	
-	printf("\nLa fine della lista e' %d\n",(((tmp->next)->next)->next));
+	//printf("\nLa fine della lista e' %d\n",(((tmp->next)->next)->next));
 	/*
 	while((tmp->next)!=NULL){
 		printf("\ntmp e' diverso da NULL\n");
