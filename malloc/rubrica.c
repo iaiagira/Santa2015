@@ -1,3 +1,6 @@
+//Rubrica con array e puntatori
+
+
 #include <stdio.h>
 #include <string.h>
 
@@ -16,12 +19,12 @@ utente rubrica[dim1];
 
 int inserisci_utente(utente *);  //done
 void ordina_cognomi(utente *,int);  //done
-void cancella_utente(utente *);
+int cancella_utente(utente *,int);				//non funziona il copiare una parola,ma poi che senso ha farmi vedere un 'none'?bisognerebbe traslare tt di 1 casella:quella cancellata
 int cerca_utente(utente *,int); //done
 //int inserisci_utente_ultimo(utente *);
 
 int main(){
-	int m=0,i,ok=0,ins=0;
+	int m=0,i,ins=0,verifica=0;
 	
 	
 	//INSERIRE UTENTI
@@ -40,9 +43,23 @@ int main(){
 	}
 	
 	//CANCELLA UTENTE
+	printf("Vuoi cancellare un utente?(1=sì, 0=no)");
+	scanf("%d",&verifica);
+	if(verifica==1){
+		ins=cancella_utente(rubrica,m);
+
+		printf("Rubrica con i cancellamenti eseguiti:\n");
+		for(i=0;i<m;i++){
+		printf("Utente numero %d:\tNome:%s\t Cognome:%s\tTelefono:%d\n",i+1,rubrica[i].nome,rubrica[i].cognome,rubrica[i].num_di_t);
+	}
+}
+	
 	
 	
 	//RICERCARE UTENTE SPECIFICO
+	printf("Vuoi cercare un utente?(1=sì, 0=no)");
+	scanf("%d",&verifica);
+	if(verifica==1)
 	ins=cerca_utente(rubrica,m);
 	
 /*	if(ins==1){
@@ -64,7 +81,8 @@ int inserisci_utente(utente *r){
 		printf("Nome, Cognome:\n");
 		scanf("%s%s",(r+i)->nome,(r+i)->cognome);
 		printf("Numero di telefono:\n");
-		scanf("%d",&(r+1)->num_di_t);
+		scanf("%d",&(r+i)->num_di_t);
+		printf("Utente numero %d:\tNome:%s\t Cognome:%s\tTelefono:%d\n",i+1,(r+i)->nome,(r+i)->cognome,(r+i)->num_di_t);
 	}
 	
 	for(i=0;i<n;i++){
@@ -110,12 +128,37 @@ int cerca_utente(utente *r,int m){
 			return 1;
 		}
 		else{
-			printf("Non hai all'interno della rubrica l'utente cercato\nVuoi inserirlo?(1=sì; 0=no)");
+			printf("Non hai all'interno della rubrica l'utente cercato\n");
 			//scanf("%d",&inserire);
 			return 0;		
 		}
 	
 }	
+
+int cancella_utente(utente *r,int m){
+	int i=0;
+	utente da_cancellare;
+	
+	printf("Inserisci nome e cognome dell'utente da cancellare:\n");
+	scanf("%s%s",da_cancellare.nome,da_cancellare.cognome);
+	
+	while(((strcmp((r+i)->cognome, da_cancellare.cognome)!=0)&&(strcmp((r+i)->nome, da_cancellare.nome)!=0))&&(i<m)){
+		i++;
+		}
+		
+		if(i<m){
+			printf("Utente da cancellare trovato alla posizione %d\n",i+1);
+			strcpy((r+i)->nome, "none");
+			strcpy((r+i)->cognome, "none");
+			(r+i)->num_di_t=0;
+			return 1;
+		}
+		else{
+			printf("Non hai all'interno della rubrica l'utente cercato\n");
+			//scanf("%d",&inserire);
+			return 0;		
+	}
+}
 
 /* int inserisci_utente_ultimo(untente *r,int dim1){
 	int i;
