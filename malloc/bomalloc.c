@@ -97,19 +97,19 @@ int  ricerca(el *tmp ,int n){
 	
 	int ok=0;
 	
-	printf("\nIl codice della testa e' %d\n", tmp->inf);
+	printf("\nIl codice della testa e' %p\n", &(tmp));
 	
-	printf("\nIl codice del secondo utente e' %d\n", (tmp->next)->inf);
+	printf("\nIl codice del secondo utente e' %p\n", &((tmp->next)));
 	
-	//printf("\nLa fine della lista e' %d\n",(((tmp->next)->next)->next));
-	/*
-	while((tmp->next)!=NULL){
+	
+	while((tmp!=NULL)&&(!ok)){
 		printf("\ntmp e' diverso da NULL\n");
 		if((tmp->inf)==n){
 			ok=1;
-			tmp=tmp->next;
+			
 		}
-	}*/
+		tmp=tmp->next;
+	}
 	return ok;
 }
 		

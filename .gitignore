@@ -1,3 +1,6 @@
+malloc/rubrica_malloc
+*.gch
+*.a
 *.o
 ex
 exe

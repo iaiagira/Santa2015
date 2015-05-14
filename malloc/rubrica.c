@@ -19,7 +19,7 @@ utente rubrica[dim1];
 
 int inserisci_utente(utente *);  //done
 void ordina_cognomi(utente *,int);  //done
-int cancella_utente(utente *,int);				//non funziona il copiare una parola,ma poi che senso ha farmi vedere un 'none'?bisognerebbe traslare tt di 1 casella:quella cancellata
+int cancella_utente(utente *,int);	//che senso ha farmi vedere un 'none'?bisognerebbe traslare tt di 1 casella:quella cancellata
 int cerca_utente(utente *,int); //done
 //int inserisci_utente_ultimo(utente *);
 
