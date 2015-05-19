@@ -46,6 +46,47 @@ void ordina_cognomi(utente *testa){
 	}
 }
 
+int cancella_utente(utente *tmp ,char *nome, char *cognome, utente *testa_new){
+		
+	utente *prev=NULL;
+	
+		
+	while((tmp!=NULL)){	
+		printf("\ntmp e' diverso da NULL\n");
+		
+		if((strcmp(tmp->nome,nome)==0)&&(strcmp(tmp->cognome,cognome)==0)){
+			
+			if(prev==NULL){
+				
+				testa_new=tmp->next;
+				
+				printf("testanew nella funz: %d\n",&testa_new);
+			
+				free(tmp->nome); 
+				free(tmp->cognome); 
+				free(tmp);
+				
+			}else{
+		
+				prev->next=tmp->next;
+			
+				free(tmp->nome); 
+				free(tmp->cognome); 
+				free(tmp);
+			
+			}
+			
+			return 1;
+			
+		}
+		prev=tmp;
+		tmp=tmp->next;
+		
+	}
+	
+	return 0;
+}
+/*
 //cancella utente
 utente* cancella_utente(utente *tmp ,char *nome, char *cognome){
 		
@@ -85,7 +126,7 @@ utente* cancella_utente(utente *tmp ,char *nome, char *cognome){
 	
 	return testa;
 }
-
+*/
 //inserisci utente in ordine
 int  inserisci(utente *tmp, utente *da_inserire){
 	

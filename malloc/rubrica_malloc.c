@@ -12,7 +12,7 @@ int main(){
 	
 	utente *testa, *coda, *tmp,*testa2,da_inserire;
 	char da_cercarenome[M],da_cercarecognome[M];
-	int n, i, size,soluz=0,lunghnome=0,lunghcognome=0;
+	int n, i, size,ok=0,soluz=0,lunghnome=0,lunghcognome=0;
 	char name[M], surname[M];
 	
 	
@@ -118,14 +118,25 @@ int main(){
 	
 	printf("\n il nome e cognome dell'utente che vuoi cancellare sono : %s\t%s\n",da_cercarenome,da_cercarecognome);
 	
-	testa=cancella_utente(testa,da_cercarenome,da_cercarecognome);
-
+	testa2=testa;
 	
-	printf("Rubrica sistemata:\n");
-	for(tmp=testa;tmp!=NULL;tmp=tmp->next){
+	ok=cancella_utente(testa,da_cercarenome,da_cercarecognome,testa2);
+
+	printf("testanew nel main: %d\n",&testa2);
+	if(ok==1){
 		
-		printf("\nUtente: %s\t%s\t%d\n", tmp->nome,tmp->cognome,tmp->num_di_t); 
-	}
+		printf("Utente trovato e cancellato\n");
+		printf("Rubrica sistemata:\n");
+		
+		for(tmp=testa;tmp!=NULL;tmp=tmp->next)
+			
+			printf("\nUtente: %s\t%s\t%d\n", tmp->nome,tmp->cognome,tmp->num_di_t); 
+		
+	}else
+	
+		printf("Utente NON trovato e  NON cancellato\n");
+	
+	
 	
 /*	
 	//Inserire altro utente in modo ordinato
