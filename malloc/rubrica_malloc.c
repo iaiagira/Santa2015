@@ -10,14 +10,13 @@
 
 int main(){
 	
-	utente *testa, *coda, *tmp,*testa2,da_inserire;
+	utente *testa, *coda, *tmp,da_inserire;
 	char da_cercarenome[M],da_cercarecognome[M];
 	int n, i, size,ok=0,soluz=0,lunghnome=0,lunghcognome=0;
 	char name[M], surname[M];
 	
-	
+	//Inserimento utenti
 	size=sizeof(utente);
-	printf("\nLa dimensione del tipo el e': %d\n", size);
 
 	testa=(utente *)malloc(sizeof(utente));
 	testa->next=NULL;
@@ -37,9 +36,9 @@ int main(){
 	lunghcognome=strlen(surname);
 	
 		
-	printf("lughnome:%d lungcognome %d",lunghnome, lunghcognome);
+	//printf("lughnome:%d lungcognome %d",lunghnome, lunghcognome);
 	
-	testa->nome=(char*)malloc(sizeof(char)*(lunghnome+1));  // +1 perchè c'è il carattere terminatore che la strlen non conta
+	testa->nome=(char*)malloc(sizeof(char)*(lunghnome+1));  // +1 perchè c'è il carattere terminatore che la strlen non conta!!!
 	testa->cognome=(char*)malloc(sizeof(char)*(lunghcognome+1));
 	
 	strcpy(testa->nome,name);
@@ -76,12 +75,12 @@ int main(){
 	
 	printf("\nLa rubrica e':\n");
 	
-	tmp=testa;
 	
-	for(tmp=testa;tmp!=NULL;tmp=tmp->next){
+	
+	for(tmp=testa;tmp!=NULL;tmp=tmp->next)
 	
 		printf("\nUtente: %s\t%s\t%d\n", tmp->nome,tmp->cognome,tmp->num_di_t); 
-	}
+	
 	
 	
 	//Ricerca di un utente
@@ -118,11 +117,10 @@ int main(){
 	
 	printf("\n il nome e cognome dell'utente che vuoi cancellare sono : %s\t%s\n",da_cercarenome,da_cercarecognome);
 	
-	testa2=testa;
 	
-	ok=cancella_utente(testa,da_cercarenome,da_cercarecognome,testa2);
+	ok=cancella_utente(da_cercarenome,da_cercarecognome,&testa);
 
-	printf("testanew nel main: %d\n",&testa2);
+	
 	if(ok==1){
 		
 		printf("Utente trovato e cancellato\n");
@@ -145,7 +143,6 @@ int main(){
 	tmp->next=NULL;
 	
 	da_inserire=tmp;
-	coda=da_inserire;
 	
 	printf("\nDigita il nome, cognome e numero di tel dell'utente che vuoi inserire\n");
 	scanf("%s%s%d",da_inserire->nome,da_inserire->cognome, &da_inserire->num_di_t);

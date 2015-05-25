@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "libreria_ari.h"
-#include<malloc.h>
+#include <malloc.h>
 
 
 //ricerca utente
@@ -46,9 +46,11 @@ void ordina_cognomi(utente *testa){
 	}
 }
 
-int cancella_utente(utente *tmp ,char *nome, char *cognome, utente *testa_new){
+int cancella_utente(char *nome, char *cognome, utente **testa){
 		
-	utente *prev=NULL;
+	utente *prev=NULL,*tmp;
+	
+	tmp=*testa;
 	
 		
 	while((tmp!=NULL)){	
@@ -58,9 +60,9 @@ int cancella_utente(utente *tmp ,char *nome, char *cognome, utente *testa_new){
 			
 			if(prev==NULL){
 				
-				testa_new=tmp->next;
+				printf("sto eliminando il primo elemento nome:%s cognome: %s\n",nome,cognome);
 				
-				printf("testanew nella funz: %d\n",&testa_new);
+				*testa=tmp->next;
 			
 				free(tmp->nome); 
 				free(tmp->cognome); 
@@ -86,7 +88,7 @@ int cancella_utente(utente *tmp ,char *nome, char *cognome, utente *testa_new){
 	
 	return 0;
 }
-/*
+/* // altro modo per fare cancella utente ritornando la testa e non un numero per dire cancellato correttamente o no
 //cancella utente
 utente* cancella_utente(utente *tmp ,char *nome, char *cognome){
 		
@@ -127,35 +129,25 @@ utente* cancella_utente(utente *tmp ,char *nome, char *cognome){
 	return testa;
 }
 */
-//inserisci utente in ordine
-int  inserisci(utente *tmp, utente *da_inserire){
+
+//inserisci utente in ordine alfabetico
+int  inserisci(utente *testa, utente *da_inserire){
 	
 	int ok=0;
-utente *var, *coda, *testa;
+utente *tmp,tmp2;
 	
-	var=(utente *)malloc(sizeof(utente));
-	var->next=NULL;
 	
-	testa=var;
-	coda=testa;
-	coda->next=tmp;
-	coda=tmp;
+	
 	
 	for(tmp=testa;tmp!=NULL;tmp=tmp->next){
+		tmp2=
 			if(strcmp((tmp)->cognome,(da_inserire)->cognome)<0){   //se il cognome dell'utente dopo deve stare prima in ordine alfabet.
-				strcpy(var->cognome,(tmp)->cognome);
-				strcpy((tmp)->cognome,(da_inserire)->cognome);
-				strcpy((da_inserire)->cognome,var->cognome);
-				strcpy(var->nome,tmp->nome);
-				strcpy((tmp)->nome,(da_inserire)->nome);
-				strcpy((da_inserire)->nome,var->nome);
-				var->num_di_t=tmp->num_di_t;
-				tmp->num_di_t=da_inserire->num_di_t;
-				da_inserire->num_di_t=var->num_di_t;
+				tmp
+				ne->next=tmp;
+				tmp->next=ne;
+				
 		}
-	}
-	
-	//free(var);
+		}
 	
 	return ok;
 }

@@ -15,5 +15,5 @@ struct pers{
 	
 	int ricerca(utente *,char *, char *);
 	void ordina_cognomi(utente *);  
-	int cancella_utente(utente *,char *, char *, utente *);
+	int cancella_utente(char *, char *, utente **);
 	int inserisci(utente *, utente*);
