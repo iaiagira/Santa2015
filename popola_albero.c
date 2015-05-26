@@ -2,20 +2,19 @@
 #include <malloc.h>
 
 
-#define N 5
+#define N 20
 
 struct nodo{
 	int num;
 	struct nodo *left;
 	struct nodo *right;
 	struct nodo *prev;
-	struct nodo *next;
 };
 
 typedef struct nodo foglia;
 
 void popola_albero(foglia *,int);
-
+void stampa_in_ordine(foglia *);
 
 //main
 int main(){
@@ -36,15 +35,16 @@ int main(){
 	testa->prev=NULL;
 	testa->right=NULL;
 	testa->left=NULL;
-	testa->next=NULL;
 	testa->num=n1;
 	
 	
-	popola_albero(testa,DIM-1);
+	popola_albero(testa,DIM);
+	
+	printf("\n L'albero è riempito di numeri\n I numeri ordnati sono:");
+	
+	//stampa_in_ordine(testa,DIM);
 	
 	
-	
-
 return 0;
 }
 
@@ -55,11 +55,12 @@ void popola_albero(foglia *testa, int DIM){
 	
 	
 	int n=0,i;
-	foglia *tmp,*root;
+	foglia *tmp,*tmp1, *c;
 	
-	root=testa;
+	/*//inserisco il secondo numero della lista
 	
-	//inserisco il secondo numero della lista
+	printf("\nInserisci numero\n");
+	scanf("%d",&n);
 	
 	tmp=(foglia *)malloc(sizeof(foglia));
 		tmp->prev=NULL;
@@ -82,70 +83,130 @@ void popola_albero(foglia *testa, int DIM){
 		tmp->prev=testa;
 		testa=tmp;
 		printf("\ntesta è cambiato quindi il num di testa è %d\n", testa->num);
+	*/
 	
 	//inserisco altri numeri della lista
 	
+	tmp=testa;
+	
 	for(i=1;i<DIM;i++){
 		
+		printf("PROVO allocare memoria1 per %d",n);
 		printf("\nInserisci numero\n");
 		scanf("%d",&n);
 		
-		tmp=(foglia *)malloc(sizeof(foglia));
-		tmp->prev=NULL;
-		tmp->left=NULL;
-		tmp->right=NULL;
-		tmp->next=NULL;
-		tmp->num=n;
+		printf("PROVO allocare memoria2 per %d",n);
 		
-		if(n>root->num){
+		tmp1=(foglia *)malloc(sizeof(foglia));
+		
+		tmp1->prev=NULL;
+		tmp1->left=NULL;
+		tmp1->right=NULL;
+		
+		tmp1->num=n;
+		
+		c=tmp1;
+		
+		
+		/*free(tmp1->left);
+		free(tmp1->right);
+		free(tmp1->prev);
+		free(tmp1);
+		*/
+		
+		printf(" al giro %d tmp1=%d",i,tmp1->num);
+		
+		while(tmp->left!=NULL || tmp->right!=NULL){
+			
+			tmp=testa;
+			
+			if(n>tmp->num){
+				
+				tmp=tmp->right;
+				printf("a dx del root,tmp right è %d\n",tmp->right->num);
+				
+			}else{
+				
+				tmp=tmp->left;
+				printf("a sx del root,tmp left è %d\n",tmp->left->num);
+			}
+		}
+		
+		if(n>tmp->num){
+			
+			c->prev=tmp;
+			tmp->right=c;
+			
+			printf("METTO:a dx del tmp,tmp right è %d\n",tmp->right->num);
+			
+		}else{
+			
+			c->prev=tmp;
+			tmp->left=c;
+			
+			printf("METTO:a sx del tmp,tmp left è %d\n",tmp->left->num);
+		
+		}
+			printf("ho finito il %d ciclo for",i);
+	}
+			
+}	
+		/*if(n>root->num){
 			
 			tmp=root;
-			while(tmp->right=!NULL){
+			while(tmp->right!=NULL && tmp1->num>tmp->num){
 				
-				tmp=tmp->next;
-				
-				if(n>tmp->num){
-				
-					tmp->prev=testa;
-					testa->next=tmp;
-					testa->right=tmp;
-					tmp=testa;
-					
-				}else{
-				
-					tmp->prev=testa;
-					testa->next=tmp;
-					testa->left=tmp;
-					tmp=testa;
-				}
+				tmp=tmp->right;
 				
 			}
+				
+				if(n>tmp->num && tmp->right==NULL){
+				
+					tmp1->prev=tmp;
+					tmp->next=tmp1;
+					tmp->right=tmp1;
+					printf("a dx del root,a dx perchè %d > %d ;tmp right è %d\n",tmp1->num,tmp->num,tmp->right->num);
+					
+				}else if(n<tmp->num && tmp->left==NULL){
+				
+					tmp1->prev=tmp;
+					tmp->next=tmp1;
+					tmp->left=tmp1;
+					printf("a sx del root,a sx perchè %d < %d ;tmp left è %d\n",tmp1->num,tmp->num, tmp->left->num);
+				}
+				
+		
 				
 		}else{
 			
 			tmp=root;
 			
-			for(tmp=root;tmp->left=!NULL;tmp=tmp->next){
+			while(tmp->left!=NULL && tmp1->num<tmp->num){
+				
+				tmp=tmp->left;
+			
+			}
 		
-				if(n>tmp->num){
+				if(n>tmp->num && tmp->right==NULL){
 				
-					tmp->prev=testa;
-					testa->next=tmp;
-					testa->right=tmp;
-					tmp=testa;
+					tmp1->prev=tmp;
+					tmp->next=tmp1;
+					tmp->right=tmp1;
+					printf("a sx del root,a dx perchè %d > %d ;tmp right è %d\n",tmp1->num,tmp->num, tmp->right->num);
 					
-				}else{
+				}else if(n<tmp->num && tmp->left==NULL){
 				
-					tmp->prev=testa;
-					testa->next=tmp;
-					testa->left=tmp;
-					tmp=testa;
+					tmp1->prev=tmp;
+					tmp->next=tmp1;
+					tmp->left=tmp1;
+					printf("a sx del root,a sx perchè %d < %d ;tmp left è %d\n",tmp1->num,tmp->num, tmp->left->num);
 				}
 				
 			}
 		}
+	}
 		
-	/*	if(n<testa->num && n<root->num){
+		if(n<testa->num && n<root->num){
 			
 			testa->left=tmp;
 			printf("testa left è %d", testa->left->num);
@@ -160,5 +221,23 @@ void popola_albero(foglia *testa, int DIM){
 		testa=tmp;
 		printf("\ntesta è cambiato quindi il num di testa è %d\n", testa->num);
 	}
-	*/
-}
+
+
+void stampa_in_ordine(foglia *testa){
+	
+	
+	if(testa->right==NULL && testa->left==NULL){
+
+		printf("\n%d\n",testa->num);
+		
+		stampa(testa->prev);
+		
+	}else if(testa->right!=NULL){
+		
+		stampa(testa->right);
+		
+	
+	}else
+	stampa_in_ordine(testa->next);
+	
+*/
