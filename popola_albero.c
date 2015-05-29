@@ -15,6 +15,7 @@ typedef struct nodo foglia;
 
 void popola_albero(foglia *,int);
 void stampa_in_ordine(foglia *);
+void stampa_in_ordine_decrescente(foglia *);
 
 //main
 int main(){
@@ -44,6 +45,9 @@ int main(){
 	
 	stampa_in_ordine(testa);
 	
+	printf("\n L'albero è riempito di numeri\n I numeri ordnati in ordine DECRESCENTE sono:");
+	
+	stampa_in_ordine_decrescente(testa);
 	
 return 0;
 }
@@ -129,6 +133,17 @@ void stampa_in_ordine(foglia *testa){
 	printf("\n%d\n",testa->num);							
 	stampa_in_ordine(testa->right);
 		
+}	
+
+void stampa_in_ordine_decrescente(foglia *testa){
+	
+
+	if(testa==NULL)
+		return;
+							
+	stampa_in_ordine_decrescente(testa->right);
+	printf("\n%d\n",testa->num);
+	stampa_in_ordine_decrescente(testa->left);	
 }	
 	
 /*
