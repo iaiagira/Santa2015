@@ -118,7 +118,20 @@ void popola_albero(foglia *testa, int DIM){
 	}
 			
 }	
+
+void stampa_in_ordine(foglia *testa){
 	
+	
+	if(testa==NULL)
+		return;
+	
+	stampa_in_ordine(testa->left);
+	printf("\n%d\n",testa->num);							
+	stampa_in_ordine(testa->right);
+		
+}	
+	
+/*
 void stampa_in_ordine(foglia *testa){
 	
 	
@@ -143,3 +156,4 @@ void stampa_in_ordine(foglia *testa){
 		
 	}
 }
+*/
