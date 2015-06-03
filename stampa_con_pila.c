@@ -1,27 +1,32 @@
 #include<stdio.h>
 #include<malloc.h>
 
+#define N 20
 
 struct el_t{    
 	int num;
 	struct el_t *left;
 	struct el_t *right;
 	struct el_t *prev;
-	struct el_t *next;
+};
+
+struct pila_t{
 	int left_visit;
 	int right_visit;
+	struct pila_t *next;
 };
+
+typedef struct pila_t pila;
+
 
 typedef struct el_t elem;
 
 void popola_albero(elem *,int);
-void push(elem *, elem);
-void pull(elem *);
+void push(pila **,int,int);
+void pop(pila **);
 void stampa_in_ordine(elem *);
 
-
 //main
-
 int main(){
 
 	elem *root;
@@ -38,7 +43,6 @@ int main(){
 	
 	root=(elem *)malloc(sizeof(elem)); 
 	root->prev=NULL;
-	root->next=NULL;
 	root->right=NULL;
 	root->left=NULL;
 	
@@ -47,7 +51,6 @@ int main(){
 	
 	popola_albero(root,DIM);
 	
-	printf("\n L'albero è riempito di numeri\n I numeri ordnati sono:");
 	
 	stampa_in_ordine(root);
 	
@@ -58,29 +61,25 @@ return 0;
 
 //popola_albero
 
-void popola_albero(foglia *testa, int DIM){
+void popola_albero(elem *testa, int DIM){
 	
 	
 	int n=0,i,inserito;
-	foglia *tmp,*tmp1;
+	elem *tmp,*tmp1;
 	
 	//inserisco altri numeri della lista
 	for(i=1;i<DIM;i++){
 		
-		printf("\nPROVO allocare memoria1 per %d\n",n);
 		printf("\nInserisci numero\n");
 		scanf("%d",&n);
 		
-		printf("\nPROVO allocare memoria2 per %d\n",n);
 		
-		tmp1=(foglia *)malloc(sizeof(foglia));
+		tmp1=(elem *)malloc(sizeof(elem));
 		
 		tmp1->prev=NULL;
-		tmp1->next=NULL;
 		tmp1->left=NULL;
 		tmp1->right=NULL;
-		tmp1->right_visit=NULL;
-		tmp1->left_visit=NULL;
+		
 		tmp1->num=n;
 		
 		tmp=testa;
@@ -128,40 +127,70 @@ void popola_albero(foglia *testa, int DIM){
 			
 }	
 
-void push(elem *testa, elem da_inserire){
+void push(pila **testa, int left_visit,int right_visit){
 	
-	if(testa==NULL)
-		
-		testa=da_inserire;
+	pila *tmp;
 	
-	else push(testa->next,da_inserire);
+	tmp=(pila *)malloc(sizeof(pila));
+	tmp->left_visit=left_visit;
+	tmp->right_visit=right_visit;
+	
+	tmp->next=*testa;
+	
+	*testa=tmp;
 	
 }
 
-void pull(elem *testa){
+void pop(pila **testa){
 	
-	elem *tmp;
+	pila *tmp;
 	
-	if(testa->next==NULL){
-		
-		tmp=testa;
-		testa=tmp->prev;
-		free(tmp);
-		
-	
-	}else pull(testa->next);
+	tmp=*testa;
+	*testa=tmp->next;
+
+	free(tmp);
 	
 }
 	
 
-void stampa_in_ordine(foglia *testa){
+void stampa_in_ordine(elem *testa){
 	
+	pila *esploraz;
+
+	esploraz=NULL;
 	
 	if(testa==NULL)
 		return;
+		
+	push(&esploraz,0,0);
+		
+	printf("\n L'albero è riempito di numeri\n I numeri ordinati sono:");
 	
-	/*stampa_in_ordine(testa->left);
-	printf("\n%d\n",testa->num);							
-	stampa_in_ordine(testa->right);
-	*/	
+	while(esploraz!=NULL){
+		
+		
+		if(esploraz->left_visit==0){
+			
+			esploraz->left_visit=1;
+		
+			if(testa->left!=NULL){
+				testa=testa->left;
+				push(&esploraz,0,0);
+				
+			}
+		}else if(esploraz->right_visit==0){
+				
+			printf("\n%d\n",testa->num);	
+			esploraz->right_visit=1;
+		
+			if(testa->right!=NULL){
+				testa=testa->right;
+				push(&esploraz,0,0);
+			}
+		}else{
+			
+			pop(&esploraz);
+			testa=testa->prev;
+		}	
+	}
 }	
