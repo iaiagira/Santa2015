@@ -35,6 +35,8 @@ def fromPrecToMatrix(numNodes, precedences):
 	return result
 
 
+def generateRandomDAG(numNodes):
+	pass
 
 
 
