@@ -35,5 +35,29 @@ def topologicalSort(numNodes, precedences):
 
 
 def fastSort(numNodes, precedences):
-	pass
-	
+	L = []
+	ordtop = []
+
+	resultSucc = graph_utils.fromPrecToSucc(numNodes, precedences)
+	resultPrec = graph_utils.fromPrecToPrec(numNodes, precedences)
+
+	#while len(ordtop) < numNodes:
+
+	for n in resultPrec:
+		if len(resultPrec[n]) == 0:
+			L.append(n)
+
+	while len(L)>0:
+		n = L.pop()
+		ordtop.append(n)
+		for s in resultSucc[n]:
+			resultPrec[s].remove(n)
+			if len(resultPrec[s]) == 0:
+				L.append(s)
+
+	if len(ordtop) != numNodes:
+		raise Exception('The graph is not a DAG!')
+
+	return ordtop
+
+

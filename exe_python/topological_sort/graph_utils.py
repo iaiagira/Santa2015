@@ -1,4 +1,5 @@
 # contiene metodi per conversione formato grafo
+import random
 
 def fromPrecToSucc(numNodes, precedences):
 	result = {}
@@ -36,7 +37,17 @@ def fromPrecToMatrix(numNodes, precedences):
 
 
 def generateRandomDAG(numNodes):
-	pass
+	precedences = []
+
+#for i in xrange(numNodes - 1, -1, -1):
+	for i in xrange(0, numNodes, 1):
+		for j in xrange(0, i, 1):
+			precedences.append((i,j))
+
+	random.shuffle(precedences)
+
+	return precedences
+
 
 
 
