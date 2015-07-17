@@ -1,6 +1,14 @@
 # contiene il metodo per fare l'ordinamento topologico
 import graph_utils
 
+
+class NotADAGException(Exception):
+	def __init__(self, value):
+		self.value = value
+	def __str__(self):
+		return repr(self.value)
+
+
 def topologicalSort(numNodes, precedences):
 
 	ordtop = []
@@ -29,7 +37,7 @@ def topologicalSort(numNodes, precedences):
 					resultPrec[n].remove(p)
 
 		if not found:
-			raise Exception('The graph is not a DAG!')
+			raise NotADAGException('The graph is not a DAG!')
 		 
 	return ordtop
 
@@ -56,7 +64,7 @@ def fastSort(numNodes, precedences):
 				L.append(s)
 
 	if len(ordtop) != numNodes:
-		raise Exception('The graph is not a DAG!')
+		raise NotADAGException('The graph is not a DAG!')
 
 	return ordtop
 

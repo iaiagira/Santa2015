@@ -1,0 +1,2 @@
+Il grafo non e' un DAG!
+Tempo di esecuzione:3.00407409668e-05
